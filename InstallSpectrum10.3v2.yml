@@ -18,6 +18,7 @@
           path_media_install_dir: /home/Spectrum
           path_media_file_installer: /home/Spectrum/InstallerSpectrum10.3.tar
           path_media_file_src: /home/Spectrum/src/InstallerSpectrum10.3.tar
+          path_sradmin: /sw/SPECTRUM/SRAdmin
 
   tasks:
           - name: Validar si existe la carpeta con la media de instalación para spectrum
@@ -74,6 +75,49 @@
                   src: '{{ path_media_file_installer }}'
                   dest: '{{ path_media_install_dest }}'
                   remote_src: yes
+
+
+          #########################################################################
+          ## 
+          ## INSTALACIÓN DEL SRAdmin daemond
+          ##
+          ########################################################################
+
+          - name: Validar si existe la carpeta en donde vamos a colocar el SRAdmin
+            stat:
+                  path: '{{ path_sradmin }}'
+            register: existe_path_sradmin
+
+          - name: Si la carpeta ya existe detenemos la instalación en lo que se deinen nuevas rutas
+            meta: end_play
+            when: existe_path_sradmin.stat.exists == False
+
+          - name: Crear carpeta '{{ path_sradmin }}' en caso de no existir para depositar la carpeta del instalable
+            file:
+                  path: '{{ path_sradmin }}'
+                  state: directory
+                  mode: '0755'
+            when: existe_path_sradmin.stat.exists == False
+
+          - name: Copiar el archivo SRadmin.exe de la carpeta de instalaciòn del '{{ path_sradmin }}'
+            copy:
+                  src: '{{ path_media_install_dest }}sdic/linux/sradmin.exe'
+                  dest: '{{ path_sradmin }}/sradmin.exe'
+                  remote_src: yes
+                  owner: root
+                  backup: no
+
+           - name: Copiar el archivo sradmin.rc2 al directorio init.d
+             copy:
+                  src: '{{ path_media_install_dest }}sdic/linux/sradmin.rc2'
+                  dest: '/etc/init.d/sradmin'
+                  remote_src: yes
+                  owner: root
+                  backup: no
+              
+
+
+
 
             
 
