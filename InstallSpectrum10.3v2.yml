@@ -119,7 +119,11 @@
             file: dest=/etc/init.d/sradmin mode=500
 
 
+          - name: Ejecutamos el comando /sbin/chkconfig --add sradmin
+            command: /sbin/chkconfig --add sradmin
 
+          - name: Iniciar el daemon SRAdmin de spectrum
+            command: /etc/init.d/sradmin start 
 
             
 
