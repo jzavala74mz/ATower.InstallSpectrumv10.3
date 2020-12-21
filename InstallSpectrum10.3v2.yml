@@ -4,6 +4,8 @@
   ## Upload via OwnCloud:
   ## curl -X PUT -u admin:Jorge.Zavala$1974 "https://gnld.dist.werosoft.com.mx/recursos/remote.php/webdav/Documents/ticket1.xml" -F f=@"ticket1.xml"
   ## curl -X PUT -u admin:Jorge.Zavala$1974 "https://gnld.dist.werosoft.com.mx/recursos/remote.php/webdav/Proyectos/Ansible/Downloads/Instalables/Spectrum/InstallSpectrum_v10.3.tar" -F f=@"InstallSpectrum_v10.3.tar" --silent --progress-bar
+  ## Variable: path_media_install_dest_form --> Ruta de la media de instalación en caso de no venir vacia
+  ## Variable: modo_get_installer --> Modo en como se obtiene el instalador en formato tar
 - name: INSTALAR SPECTRUM 10_3 EN LINUX RED HAT 8.0/CENTOS 8_0 - modif004
   hosts: all
 
@@ -48,6 +50,16 @@
                     dest: '{{ path_media_file_installer }}'
             when: '"DESCARGAR DESDE LA NUVE" in modo_get_installer'
 
+          - name: Copiar el instalable desde una ruta local (Servidor Destino) ya especificada
+            copy:
+                  src: '{{ path_media_install_dest_form }}'
+                  dest: '{{ path_media_file_installer }}'
+                  remote_src: yes
+                  owner: root
+                  backup: no
+            when: '"COPIA LOCAL MANUAL" in modo_get_installer'
+
+
           - name: Copiar el archivo instalador localmente (ya debe de existir) segun las rutas especificadas
             copy:
                   src: '{{ path_media_file_src }}'
@@ -55,7 +67,7 @@
                   remote_src: yes
                   owner: root
                   backup: no
-            when: '"COPIA LOCAL" in modo_get_installer'
+            when: '"COPIA LOCAL DEFAULT" in modo_get_installer'
 
           - name: Descomprimir el instalable y colocamos los archivos en: '{{ path_media_install_dest }}'
             unarchive:
