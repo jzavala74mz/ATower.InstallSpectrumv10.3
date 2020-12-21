@@ -90,7 +90,7 @@
 
           - name: Si la carpeta ya existe detenemos la instalación en lo que se deinen nuevas rutas
             meta: end_play
-            when: existe_path_sradmin.stat.exists == False
+            when: existe_path_sradmin.stat.exists == True
 
           - name: Crear carpeta '{{ path_sradmin }}' en caso de no existir para depositar la carpeta del instalable
             file:
