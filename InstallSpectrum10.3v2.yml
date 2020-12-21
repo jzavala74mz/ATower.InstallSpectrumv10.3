@@ -114,7 +114,9 @@
                   remote_src: yes
                   owner: root
                   backup: no
-              
+
+          - name: Cambiar los permisos al archivo sradmin 
+            file: dest=/etc/init.d/sradmin mode=500
 
 
 
