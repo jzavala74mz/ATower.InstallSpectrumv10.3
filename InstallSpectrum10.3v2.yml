@@ -69,7 +69,7 @@
                   backup: no
             when: '"COPIA LOCAL DEFAULT" in modo_get_installer'
 
-          - name: Descomprimir el instalable y colocamos los archivos en: '{{ path_media_install_dest }}'
+          - name: Descomprimir el instalable y colocamos los archivos
             unarchive:
                   src: '{{ path_media_file_installer }}'
                   dest: '{{ path_media_install_dest }}'
