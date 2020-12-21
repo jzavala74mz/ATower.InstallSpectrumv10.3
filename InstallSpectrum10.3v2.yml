@@ -71,9 +71,9 @@
 
           - name: Descomprimir el instalable y colocamos los archivos en: '{{ path_media_install_dest }}'
             unarchive:
-                    src: '{{ path_media_file_installer }}'
-                    dest: '{{ path_media_install_dest }}'
-                    remote_src: yes
+                  src: '{{ path_media_file_installer }}'
+                  dest: '{{ path_media_install_dest }}'
+                  remote_src: yes
 
             
 
