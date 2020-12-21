@@ -107,8 +107,8 @@
                   owner: root
                   backup: no
 
-           - name: Copiar el archivo sradmin.rc2 al directorio init.d
-             copy:
+          - name: Copiar el archivo sradmin.rc2 al directorio init.d
+            copy:
                   src: '{{ path_media_install_dest }}sdic/linux/sradmin.rc2'
                   dest: '/etc/init.d/sradmin'
                   remote_src: yes
