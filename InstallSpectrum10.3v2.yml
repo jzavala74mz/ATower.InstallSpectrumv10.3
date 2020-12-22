@@ -70,7 +70,8 @@
                     - ncurses-libs
                     - nss-softokn-freebl
                     - numactl-libs
-                    - PackageKit-gtk-module/PackageKit-gtk3-module
+                    - PackageKit-gtk-module
+                    - PackageKit-gtk3-module
                     - xorg-x11-fonts-misc
                     - Xorg-x11-server-Xvfb1
                     - xterm
