@@ -19,6 +19,9 @@
           path_media_file_installer: /home/Spectrum/InstallerSpectrum10.3.tar
           path_media_file_src: /home/Spectrum/src/InstallerSpectrum10.3.tar
           path_sradmin: /sw/SPECTRUM/SRAdmin
+          ruta_carpeta_repogit: /home/ZabbixBDDBackup
+          ruta_archivo_repogit: /home/ZabbixBDDBackupGit.zip
+
 
   tasks:
           - name: Validar si existe la carpeta con la media de instalación para spectrum
@@ -78,6 +81,46 @@
 
 
           #########################################################################
+          ##
+          ## DESCARGAR LOS RECURSOS DEL GIT
+          ##
+          #########################################################################
+          - name: Validar si ya se encuentra instalado el git validando el servicio
+            service_facts:
+          - debug:
+                  msg: Docker installed!
+            when: "'git' in services"
+
+          - name: Instalar la aplicación git para poder recuperar los recursos correspondientes
+            dnf:
+                    name: git
+                    state: present
+            when: not "'git' in services"
+
+          - name: Validar si existe la carpeta con la información del proyecto contenido en el git
+            stat:
+                    path: '{{ ruta_carpeta_repogit }}'
+            register: existe_ruta_carpeta_repogit
+
+          - name: Eliminar la carpeta con el contenido del proyecto en el git
+            file:
+                    path: '{{ ruta_carpeta_repogit }}'
+                    state: absent
+            when: existe_ruta_carpeta_repogit.stat.exists
+
+
+          - name: Descargar los recursos del git para este proyecto
+            git:
+                    repo: https://github.com/jzavala74mz/ATower.InstallSpectrumv10.3
+                    dest: '{{ ruta_carpeta_repogit }}'
+                    archive: '{{ ruta_archivo_repogit }}'
+
+
+
+          
+
+
+          #########################################################################
           ## 
           ## INSTALACIÓN DEL SRAdmin daemond
           ##
@@ -124,6 +167,11 @@
 
           - name: Iniciar el daemon SRAdmin de spectrum
             command: /etc/init.d/sradmin start 
+
+
+          - name: ejecutar prueba de archivo de credenciales
+            command: '{{ path_media_install_dest }}sdic/sdiclinux.exe -h {{ ruta_archivo_repogit }}/SpectrumHII.hii -p {{ ruta_archivo_repogit }}/FilePassword.rsc -test'
+
 
             
 
