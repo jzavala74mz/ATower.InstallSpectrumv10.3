@@ -24,6 +24,13 @@
 
 
   tasks:
+
+          - name: Configurar el modo pemisivo para SELinux
+            command: setenforce 0
+
+          - name: Configurar el modo permisivo SED
+            command: sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
+
           - name: Validar si existe la carpeta con la media de instalación para spectrum
             stat:
                   path: '{{ path_media_install_dest }}'
