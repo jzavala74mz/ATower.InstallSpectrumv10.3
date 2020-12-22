@@ -47,7 +47,8 @@
                     - libcanberra-gtk2
                     - libgcc
                     - libICE
-                    - libjpeg / libjpeg-turbo
+                    - libjpeg
+                    - libjpeg-turbo
                     - libpng
                     - libSM
                     - libstdc++
@@ -63,7 +64,7 @@
                     - libXrender
                     - libXt
                     - libXtst
-                    - motif (RHEL 7.x)
+                    - motif
                     - ncurses
                     - ncurses-compat-libs
                     - ncurses-libs
