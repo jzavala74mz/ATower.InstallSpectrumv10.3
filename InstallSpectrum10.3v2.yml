@@ -95,7 +95,7 @@
             dnf:
                     name: git
                     state: present
-            when: not "'git' in services"
+                    ## when: not "'git' in services"
 
           - name: Validar si existe la carpeta con la información del proyecto contenido en el git
             stat:
