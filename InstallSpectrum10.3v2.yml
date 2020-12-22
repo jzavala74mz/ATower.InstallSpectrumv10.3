@@ -31,6 +31,14 @@
           - name: Configurar el modo permisivo SED
             command: sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
 
+          - name: Instalar los paquetes requeridos
+            yum:
+                  name: "{{ packages }}"
+            vars:
+                    packages:
+                    - abrt
+                    - elfutils-libelf
+
           - name: Validar si existe la carpeta con la media de instalación para spectrum
             stat:
                   path: '{{ path_media_install_dest }}'
