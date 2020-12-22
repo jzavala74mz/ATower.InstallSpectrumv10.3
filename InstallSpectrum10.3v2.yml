@@ -38,6 +38,42 @@
                     packages:
                     - abrt
                     - elfutils-libelf
+                    - expat
+                    - fontconfig
+                    - freetype
+                    - glibc
+                    - ksh
+                    - libaio
+                    - libcanberra-gtk2
+                    - libgcc
+                    - libICE
+                    - libjpeg / libjpeg-turbo
+                    - libpng
+                    - libSM
+                    - libstdc++
+                    - libuuid
+                    - libX11
+                    - libXau
+                    - libxcb
+                    - libXext
+                    - libXft
+                    - libXi
+                    - libXmu
+                    - libXp
+                    - libXrender
+                    - libXt
+                    - libXtst
+                    - motif (RHEL 7.x)
+                    - ncurses
+                    - ncurses-compat-libs
+                    - ncurses-libs
+                    - nss-softokn-freebl
+                    - numactl-libs
+                    - PackageKit-gtk-module/PackageKit-gtk3-module
+                    - xorg-x11-fonts-misc
+                    - Xorg-x11-server-Xvfb1
+                    - xterm
+                    - zlib
 
           - name: Validar si existe la carpeta con la media de instalación para spectrum
             stat:
